@@ -237,7 +237,7 @@ def generate_config_files(
         sys.exit(1)
 
     # Add create-site services to the compose content (existing logic remains the same)
-    if sites and apps:
+    if sites or apps:
         try:
             # ... existing create-site service addition logic ...
             lines = compose_content.split('\n')
@@ -260,7 +260,7 @@ def generate_config_files(
                 create_site_command = [
                     "bench",
                     "new-site",
-                    "--no-mariadb-socket",
+                    "--mariadb-user-host-login-scope='%'",
                     f"--db-root-password={db_pass}",
                     f"--admin-password={admin_pass}",
                 ]
